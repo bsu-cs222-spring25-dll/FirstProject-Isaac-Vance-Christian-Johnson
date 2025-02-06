@@ -1,4 +1,6 @@
 package edu.bsu.cs222;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URLConnection;
 import java.util.Scanner;
@@ -12,9 +14,10 @@ public class ConsoleMain {
         String userInput = scan.nextLine();
 
         URLConnection connection = urlConnector.WikiURLConnection(userInput);
-        String jsonData = new DataGetter().WikiDataGetter(connection);
-        System.out.println(parser.revisionParse(jsonData));
+        JSONObject jsonData = new DataGetter().WikiDataGetter(connection);
 
+        RevisionGetter revisions = new RevisionGetter();
+        System.out.println(revisions.ArrayMaker(jsonData));
 
     }
 }
