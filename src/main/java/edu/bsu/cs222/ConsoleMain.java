@@ -1,5 +1,4 @@
 package edu.bsu.cs222;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URLConnection;
@@ -7,17 +6,23 @@ import java.util.Scanner;
 public class ConsoleMain {
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
-        WikiURL urlConnector = new WikiURL();
-        RevisionGetter parser = new RevisionGetter();
+        Errors errorChecker = new Errors();
+
+
+        DataGetter dataGetter = new DataGetter();
 
         System.out.println("Enter a wiki page title: ");
-        String userInput = scan.nextLine();
+        String userInput = scan.nextLine().toLowerCase();
+        errorChecker.checkEmptyInput(userInput);
 
-        URLConnection connection = urlConnector.WikiURLConnection(userInput);
-        JSONObject jsonData = new DataGetter().WikiDataGetter(connection);
+        URLConnection connection = WikiURL.wikiURLConnection(userInput);
+        String jsonData = dataGetter.wikiDataGetter(connection);
+        errorChecker.checkMissingArticle(jsonData);
 
-        RevisionGetter revisions = new RevisionGetter();
-        System.out.println(revisions.ArrayMaker(jsonData));
+        RevisionGetter revisionsPrinter = new RevisionGetter(jsonData);
+        revisionsPrinter.createAndFormatArray();
+        revisionsPrinter.checkRedirects();
+        revisionsPrinter.printRevisions();
 
     }
 }
