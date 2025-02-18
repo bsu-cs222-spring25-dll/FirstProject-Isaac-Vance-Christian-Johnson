@@ -22,14 +22,12 @@ public class RevisionGetter {
     }
 
     public void printRevisions() {
-        String result = null;
         for (int i = 0; i < names.size(); i++) {
-            result = System.out.printf("Timestamp: %s User: %s\n", timestamps.get(i).toString(), names.get(i).toString()).toString();
+            System.out.printf("Timestamp: %s User: %s\n", timestamps.get(i).toString(), names.get(i).toString());
         }
     }
 
     public ArrayList<String> printRevisionsGUI() {
-        String result;
         ArrayList<String> arrayList = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < 20; i++) {
