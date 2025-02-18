@@ -33,8 +33,8 @@ public class RevisionGetter {
         String result;
         ArrayList<String> arrayList = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < names.size(); i++) {
-            stringBuilder.append("Timestamp: ").append(timestamps.get(i).toString()).append("User: ").append(names.get(i).toString()).append("\n");
+        for (int i = 0; i < 20; i++) {
+            stringBuilder.append("Timestamp: ").append(timestamps.get(i).toString()).append(" User: ").append(names.get(i).toString()).append("\n");
             arrayList.add(stringBuilder.toString());
         }
         return arrayList;

@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -17,7 +18,8 @@ import java.util.ArrayList;
 
 
 public class JavaFXGUI extends Application  {
-    TextField output = new TextField();
+    TextArea output = new TextArea();
+    Errors errors = new Errors();
 
     public static void main(String[] args) {
         launch(args);
@@ -33,6 +35,9 @@ public class JavaFXGUI extends Application  {
         wikiPageInput.getChildren().add(userInput);
         parent.getChildren().add(wikiPageInput);
         output.setEditable(false);
+        output.setWrapText(true);
+        output.setMaxHeight(300);
+        output.setMaxWidth(500);
 
 
         Button submit = new Button("Submit");
@@ -56,7 +61,7 @@ public class JavaFXGUI extends Application  {
         primaryStage.show();
     }
 
-    public String wikiConnection(String userInput) throws IOException {
+    public void wikiConnection(String userInput) throws IOException {
         DataGetter dataGetter = new DataGetter();
         Errors errorChecker = new Errors();
 
@@ -67,11 +72,14 @@ public class JavaFXGUI extends Application  {
         RevisionGetter revisionsPrinter = new RevisionGetter(jsonData);
         revisionsPrinter.createAndFormatArray();
         ArrayList<String> arrayList = revisionsPrinter.printRevisionsGUI();
+        for (String s : arrayList) {
+            output.appendText(s + "\n");
+        }
 
-        output.setText(String.valueOf(arrayList));
-
-        String revisions = revisionsPrinter.printRevisions();
-        return revisions;
+        output.setText(arrayList + "\n");
+//
+//        String revisions = revisionsPrinter.printRevisions();
+//        return revisions;
 
     }
 
