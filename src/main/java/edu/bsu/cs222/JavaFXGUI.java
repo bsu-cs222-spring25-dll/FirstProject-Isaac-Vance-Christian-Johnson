@@ -63,7 +63,9 @@ public class JavaFXGUI extends Application  {
         DataGetter dataGetter = new DataGetter();
         Errors errorChecker = new Errors();
 
-        errorChecker.checkEmptyInput(userInput);
+        if (!errorChecker.checkEmptyInputGUI(userInput).isEmpty()){
+            output.setText(errorChecker.checkEmptyInputGUI(userInput));
+        }
 
         URLConnection connection = WikiURL.wikiURLConnection(userInput);
         String jsonData = dataGetter.wikiDataGetter(connection);
@@ -76,9 +78,6 @@ public class JavaFXGUI extends Application  {
         }
         revisionsPrinter.checkRedirectsGUI();
         ArrayList<String> arrayList = revisionsPrinter.printRevisionsGUI();
-//        for (String s : arrayList) {
-//            output.appendText(s + "\n");
-//        }
 
         output.appendText(arrayList + "\n");
 

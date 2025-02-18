@@ -12,6 +12,14 @@ public class Errors {
         }
     }
 
+    public String checkEmptyInputGUI(String input){
+        StringBuilder builder = new StringBuilder();
+        if(input.isEmpty()){
+            builder.append("You did not provide an article.\n");
+        }
+        return builder.toString();
+    }
+
     public void checkConnectionStatus(URL url) {
         try {
             url.openConnection().connect();

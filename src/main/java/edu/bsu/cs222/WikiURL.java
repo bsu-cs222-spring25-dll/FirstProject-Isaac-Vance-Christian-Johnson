@@ -7,7 +7,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 public class WikiURL {
-
+    static Errors errors = new Errors();
 
     public static URLConnection wikiURLConnection(String userInput) throws IOException {
         String encodedUrlString = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" +
@@ -15,10 +15,10 @@ public class WikiURL {
                 "&rvprop=timestamp|user&rvlimit=20&redirects";
         URL url = new URL(encodedUrlString);
         URLConnection wikiConnection = url.openConnection();
+        errors.checkConnectionStatus(url);
         wikiConnection.connect();
 
-        Errors errorChecker = new Errors();
-        errorChecker.checkConnectionStatus(url);
+
 
         URLConnection connection = url.openConnection();
         connection.setRequestProperty("User-Agent",

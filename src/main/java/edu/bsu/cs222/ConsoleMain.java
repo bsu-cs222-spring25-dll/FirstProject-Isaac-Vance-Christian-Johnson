@@ -16,6 +16,7 @@ public class ConsoleMain {
         errorChecker.checkEmptyInput(userInput);
 
         URLConnection connection = WikiURL.wikiURLConnection(userInput);
+
         String jsonData = dataGetter.wikiDataGetter(connection);
         errorChecker.checkMissingArticle(jsonData);
 
