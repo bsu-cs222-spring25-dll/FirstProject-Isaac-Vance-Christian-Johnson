@@ -47,8 +47,6 @@ public class JavaFXGUI extends Application  {
                 String wikiPageInput = userInput.getText();
                 try {
                     wikiConnection(wikiPageInput);
-//                    String revisions = wikiConnection(wikiPageInput);
-//                    output.setText(revisions);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -65,21 +63,24 @@ public class JavaFXGUI extends Application  {
         DataGetter dataGetter = new DataGetter();
         Errors errorChecker = new Errors();
 
+        errorChecker.checkEmptyInput(userInput);
+
         URLConnection connection = WikiURL.wikiURLConnection(userInput);
         String jsonData = dataGetter.wikiDataGetter(connection);
         errorChecker.checkMissingArticle(jsonData);
 
         RevisionGetter revisionsPrinter = new RevisionGetter(jsonData);
         revisionsPrinter.createAndFormatArray();
-        ArrayList<String> arrayList = revisionsPrinter.printRevisionsGUI();
-        for (String s : arrayList) {
-            output.appendText(s + "\n");
+        if (!revisionsPrinter.checkRedirectsGUI().isEmpty()){
+            output.setText(revisionsPrinter.checkRedirectsGUI());
         }
+        revisionsPrinter.checkRedirectsGUI();
+        ArrayList<String> arrayList = revisionsPrinter.printRevisionsGUI();
+//        for (String s : arrayList) {
+//            output.appendText(s + "\n");
+//        }
 
-        output.setText(arrayList + "\n");
-//
-//        String revisions = revisionsPrinter.printRevisions();
-//        return revisions;
+        output.appendText(arrayList + "\n");
 
     }
 

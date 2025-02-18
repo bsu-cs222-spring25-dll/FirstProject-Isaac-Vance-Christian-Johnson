@@ -21,12 +21,11 @@ public class RevisionGetter {
         timestamps = createdArray.createArray("$..revisions..timestamp");
     }
 
-    public String printRevisions() {
+    public void printRevisions() {
         String result = null;
         for (int i = 0; i < names.size(); i++) {
             result = System.out.printf("Timestamp: %s User: %s\n", timestamps.get(i).toString(), names.get(i).toString()).toString();
         }
-        return result;
     }
 
     public ArrayList<String> printRevisionsGUI() {
@@ -42,7 +41,16 @@ public class RevisionGetter {
 
     public void checkRedirects() {
         if (jsonString.contains("redirects")) {
-            System.out.printf("Redirected to %s\n\n", new JSONArrayCreator(jsonString).createArray("$..redirects..to").get(0).toString());
+            System.out.printf("Redirected to %s\n\n", new JSONArrayCreator(jsonString).createArray("$..redirects..to").getFirst().toString());
         }
     }
+
+    public String checkRedirectsGUI() {
+        StringBuilder error = new StringBuilder();
+        if (jsonString.contains("redirects")) {
+            error.append("Redirected to ").append(new JSONArrayCreator(jsonString).createArray("$..redirects..to").getFirst().toString()).append("\n");
+        }
+        return error.toString();
+    }
+
 }
