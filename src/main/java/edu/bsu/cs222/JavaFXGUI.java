@@ -1,7 +1,5 @@
 package edu.bsu.cs222;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,14 +17,14 @@ import java.util.ArrayList;
 
 public class JavaFXGUI extends Application  {
     TextArea output = new TextArea();
-    Errors errors = new Errors();
+
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         VBox parent = new VBox();
         parent.getChildren().add(new Label("Wiki Revisions Getter"));
 
@@ -41,15 +39,12 @@ public class JavaFXGUI extends Application  {
 
 
         Button submit = new Button("Submit");
-        submit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String wikiPageInput = userInput.getText();
-                try {
-                    wikiConnection(wikiPageInput);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        submit.setOnAction(actionEvent -> {
+            String wikiPageInput1 = userInput.getText();
+            try {
+                wikiConnection(wikiPageInput1);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
         parent.getChildren().add(submit);
