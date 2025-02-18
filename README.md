@@ -6,4 +6,5 @@ The user will input a wiki title and receive the first 20 recently made revision
 title that closely resembles the user input. If you enter a title that doesn't exist, you get an error that says 
 "This title doesn't exist". There will also be an error for no internet connection. 
 
-Build Instructions: Run the ConsoleMain.java to run the program. 
+Build Instructions: Run the ConsoleMain.java to run the program in the console 
+Run JavaFXMain.java to run the program in an Application.
