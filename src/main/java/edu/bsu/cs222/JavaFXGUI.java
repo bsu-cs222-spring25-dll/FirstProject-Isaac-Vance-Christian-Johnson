@@ -69,7 +69,9 @@ public class JavaFXGUI extends Application  {
 
         URLConnection connection = WikiURL.wikiURLConnection(userInput);
         String jsonData = dataGetter.wikiDataGetter(connection);
-        errorChecker.checkMissingArticle(jsonData);
+        if (!errorChecker.checkMissingArticleGUI(jsonData).isEmpty()) {
+            output.setText(errorChecker.checkMissingArticleGUI(jsonData));
+        }
 
         RevisionGetter revisionsPrinter = new RevisionGetter(jsonData);
         revisionsPrinter.createAndFormatArray();

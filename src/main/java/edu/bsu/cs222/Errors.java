@@ -2,6 +2,8 @@ package edu.bsu.cs222;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
+
+import javax.print.DocFlavor;
 import java.net.URL;
 
 public class Errors {
@@ -34,5 +36,14 @@ public class Errors {
         if(!checkForMissing.isEmpty()){
             System.err.print("The article you tried to search for does not exist.\n");
         }
+    }
+
+    public String checkMissingArticleGUI(String jsonString){
+        JSONArray checkForMissing = JsonPath.read(jsonString, "$..missing");
+        StringBuilder builder = new StringBuilder();
+        if(!checkForMissing.isEmpty()){
+            builder.append("The article you tried to search for does not exist.\n");
+        }
+        return builder.toString();
     }
 }
