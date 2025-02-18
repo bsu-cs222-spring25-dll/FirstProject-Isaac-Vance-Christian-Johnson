@@ -15,7 +15,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 
-public class JavaFXGUI extends Application {
+
+public class JavaFXGUI extends Application  {
     TextField output = new TextField();
 
     public static void main(String[] args) {
@@ -65,7 +66,9 @@ public class JavaFXGUI extends Application {
 
         RevisionGetter revisionsPrinter = new RevisionGetter(jsonData);
         revisionsPrinter.createAndFormatArray();
-        output.setText(revisionsPrinter.printRevisions());
+        ArrayList<String> arrayList = revisionsPrinter.printRevisionsGUI();
+
+        output.setText(String.valueOf(arrayList));
 
         String revisions = revisionsPrinter.printRevisions();
         return revisions;

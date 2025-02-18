@@ -2,6 +2,8 @@ package edu.bsu.cs222;
 
 import net.minidev.json.JSONArray;
 
+import java.util.ArrayList;
+
 public class RevisionGetter {
     private final String jsonString;
 
@@ -25,6 +27,17 @@ public class RevisionGetter {
             result = System.out.printf("Timestamp: %s User: %s\n", timestamps.get(i).toString(), names.get(i).toString()).toString();
         }
         return result;
+    }
+
+    public ArrayList<String> printRevisionsGUI() {
+        String result;
+        ArrayList<String> arrayList = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < names.size(); i++) {
+            stringBuilder.append("Timestamp: ").append(timestamps.get(i).toString()).append("User: ").append(names.get(i).toString()).append("\n");
+            arrayList.add(stringBuilder.toString());
+        }
+        return arrayList;
     }
 
     public void checkRedirects() {
